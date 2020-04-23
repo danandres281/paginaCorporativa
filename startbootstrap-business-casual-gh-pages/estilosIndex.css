@@ -1,0 +1,9 @@
+.container{
+	display: flex;
+	
+	margin: 20px;
+}
+.beneficios{
+	display: flex;
+	margin: 40px;px;
+}
