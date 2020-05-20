@@ -2,3 +2,116 @@ body{
 	background: url(img/login.jpg)no-repeat center center fixed;
 	background-size: cover;
 }
+<input type="button" class="btn btn-success" value="Enviar">
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Amigos Daniel</title>
+</head>
+<style type="text/css">
+	body{
+		background-color: #F3C712;
+
+	}
+#main-container{
+               margin:150px auto;
+                width:600px;
+                
+
+}	
+table{
+	border:1px solid #000;
+	border-collapse: collapse;
+	width:100%;
+	background-color:white;
+}
+table td{
+	padding: 20px;
+}
+table tr:hover td{
+	background:#03A680;
+
+}
+thead{
+      background-color: #03B58C;
+      border-bottom: solid 5px #01281F;
+      color: white;
+}
+th,td{
+	padding: 20px;
+}
+h1{
+	text-align: center;
+	color: #E82E09;
+}
+</style>
+<body>
+<h1>Bases de datos: Amigos</h1>
+<div id="main-container">
+<table border="1">
+	<thead>
+	     <th>Codigo</th>
+	     <th>Nombre</th>
+	</thead>
+<?php
+
+//Creamos la conexion con la funcion de conectar y le damos formato de datos utf8
+$conexion = connectDB();
+mysqli_set_charset($conexion, "utf8");
+
+
+//Generamos la consulta
+$sql = "SELECT * FROM amigos";
+if(!$result = mysqli_query($conexion, $sql)) die();
+
+//
+// Reccoremos los campos necesarios por ejemplo con:
+
+
+// Para filas de resultados como un array:
+while($row = mysqli_fetch_array($result)){
+      ?>
+      <tr>
+	<td><?php echo $row["codigo"] ?></td> 
+        <td><?php echo $row["nombre"] ?></td>
+        	
+      </tr>
+<?php      
+}
+
+
+//desconectamos la base de datos
+disconnectDB($conexion);
+
+
+
+
+function connectDB(){
+
+    $server = "mysql.webcindario.com";
+    $user = basesdaniel;
+    $pass ="daniel123";
+    $bd = "basesdaniel";
+
+
+    $conexion = mysqli_connect($server, $user, $pass,$bd) 
+        or die("Ha sucedido un error inexperado en la conexion de la base de datos");
+
+    return $conexion;
+} 
+
+function disconnectDB($conexion){
+
+    $close = mysqli_close($conexion) 
+        or die("Ha sucedido un error inexperado en la desconexion de la base de datos");
+
+    return $close;
+}
+?>
+
+</table>
+</div>
+</body>
+</html>
